@@ -10,8 +10,14 @@ import lombok.Data;
 @Table(name = "firestations")
 public class Firestation {
 
-	private String adress;
-	
 	@Id
+	private String address;
+	
 	private String station;
+
+	public Firestation(String address, String station) {
+		this.address = address;
+		this.station = station;
+	}
+
 }
