@@ -17,7 +17,7 @@ public class FirestationRepository extends JsonDataRepository {
 
 	public void deleteById(String address) {
 		this.getAllData().getListOfFirestations()
-		.removeIf(firestation -> firestation.getAddress().equals(address));
+			.removeIf(firestation -> firestation.getAddress().equals(address));
 	}
 
 	public Firestation save(Firestation firestation) {

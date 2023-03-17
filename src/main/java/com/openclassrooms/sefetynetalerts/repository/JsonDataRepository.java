@@ -37,8 +37,9 @@ public class JsonDataRepository {
 		this.allData = allData;
 	}
 
-	public void saveAllData() throws IOException {
+/*
+public void saveAllData() throws IOException {
 		this.allData.asJson().writeJSONString(new FileWriter(DATA_PATH));
 	}
-
+*/
 }
