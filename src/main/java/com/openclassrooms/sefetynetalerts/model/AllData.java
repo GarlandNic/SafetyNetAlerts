@@ -33,5 +33,23 @@ public class AllData {
 		this.listOfFirestations = new ArrayList<Firestation>();
 		listOfFirestations.forEach(firestation -> this.listOfFirestations.add(new Firestation((JSONObject) firestation)));
 	}
+	
+	public JSONObject asJson() {
+		JSONObject result = new JSONObject();
+
+		JSONArray listOfPersons = new JSONArray();
+		this.listOfPersons.forEach(person -> listOfPersons.add(person.asJson()));
+		result.put("persons", listOfPersons);
+		
+		JSONArray listOfFirestations = new JSONArray();
+		this.listOfFirestations.forEach(firestation -> listOfFirestations.add(firestation.asJson()));
+		result.put("firestations", listOfFirestations);
+		
+		JSONArray listOfMedicalRecords = new JSONArray();
+		this.listOfMedicalRecords.forEach(medicalRecord -> listOfMedicalRecords.add(medicalRecord.asJson()));
+		result.put("medicalrecords", listOfMedicalRecords);
+		
+		return result;
+	}
 
 }

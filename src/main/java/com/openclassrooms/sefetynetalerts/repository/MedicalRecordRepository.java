@@ -1,8 +1,9 @@
 package com.openclassrooms.sefetynetalerts.repository;
 
-import java.util.Optional;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
-import org.springframework.data.repository.CrudRepository;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Repository;
 
 import com.openclassrooms.sefetynetalerts.model.MedicalRecord;
@@ -11,16 +12,20 @@ import com.openclassrooms.sefetynetalerts.model.PersonIdentity;
 @Repository
 public class MedicalRecordRepository extends JsonDataRepository {
 	
-	private MedicalRecord medicalRecord;
-
-	public void deleteById(PersonIdentity personId) {
-		// TODO Auto-generated method stub
-		
+	MedicalRecordRepository() throws FileNotFoundException, IOException, ParseException {
+		super();
 	}
 
-	public MedicalRecord save(MedicalRecord medicalRecord2) {
-		// TODO Auto-generated method stub
-		return null;
+	public void deleteById(PersonIdentity personId) {
+		this.getAllData().getListOfMedicalRecords()
+			.removeIf(medicalRecord -> medicalRecord.getFirstName() == personId.getFirstName() 
+				&& medicalRecord.getLastName() == personId.getLastName());
+	}
+
+	public MedicalRecord save(MedicalRecord medicalRecord) {
+		this.getAllData().getListOfMedicalRecords()
+			.add(medicalRecord);
+		return medicalRecord;
 	}
 
 }

@@ -60,4 +60,15 @@ public class Person {
 		this.email = (String) person.get("email");
 	}
 	
+	public JSONObject asJson() {
+		JSONObject person = new JSONObject();
+		person.put("firstName", this.firstName);
+		person.put("lastName", this.lastName);
+		person.put("address", this.address);
+		person.put("city", this.city);
+		person.put("zip", this.zip);
+		person.put("phone", this.phone);
+		person.put("email", this.email);
+		return person;
+	}
 }

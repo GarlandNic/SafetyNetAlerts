@@ -51,11 +51,21 @@ public class MedicalRecord {
 		
 		this.medications = new ArrayList<String>();
 		JSONArray listOfMedications = (JSONArray) medicalRecord.get("medications");
-		listOfMedications.forEach(medication -> this.medications.add(medication.toString()));
+		listOfMedications.forEach(medication -> this.medications.add((String) medication));
 
 		this.allergies = new ArrayList<String>();
 		JSONArray listOfAllergies = (JSONArray) medicalRecord.get("allergies");
-		listOfAllergies.forEach(allergie -> this.allergies.add(allergie.toString()));
+		listOfAllergies.forEach(allergie -> this.allergies.add((String) allergie));
+	}
+
+	public JSONObject asJson() {
+		JSONObject medicalRecord = new JSONObject();
+		medicalRecord.put("firstName", this.firstName);
+		medicalRecord.put("lastName", this.lastName);
+		medicalRecord.put("birthdate", this.birthdate);
+		medicalRecord.put("medications", JSONArray.toJSONString(this.medications));
+		medicalRecord.put("allergies", JSONArray.toJSONString(this.allergies));
+		return medicalRecord;
 	}
 
 }

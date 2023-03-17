@@ -2,6 +2,7 @@ package com.openclassrooms.sefetynetalerts.repository;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import org.json.simple.JSONArray;
@@ -25,7 +26,7 @@ public class JsonDataRepository {
 		JSONArray jsonPersons = (JSONArray) jsonObject.get("persons");
 		JSONArray jsonFirestations = (JSONArray) jsonObject.get("firestations");
 		JSONArray jsonMedicalRecords = (JSONArray) jsonObject.get("medicalrecords");
-		this.allData = new AllData(jsonMedicalRecords, jsonMedicalRecords, jsonMedicalRecords);
+		this.allData = new AllData(jsonPersons, jsonMedicalRecords, jsonFirestations);
 	}
 
 	public AllData getAllData() {
@@ -36,7 +37,8 @@ public class JsonDataRepository {
 		this.allData = allData;
 	}
 
+	public void saveAllData() throws IOException {
+		this.allData.asJson().writeJSONString(new FileWriter(DATA_PATH));
+	}
 
-
-	
 }
