@@ -1,4 +1,4 @@
-package com.openclassrooms.sefetynetalerts.service;
+package com.openclassrooms.safetynetalerts.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MedicalRecordServiceTest {
+class FirestationServiceTest {
 
 	@Test
 	void test() {

@@ -1,13 +1,13 @@
-package com.openclassrooms.sefetynetalerts.service;
+package com.openclassrooms.safetynetalerts.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.openclassrooms.sefetynetalerts.repository.FirestationRepository;
-import com.openclassrooms.sefetynetalerts.repository.MedicalRecordRepository;
-import com.openclassrooms.sefetynetalerts.repository.PersonRepository;
+import com.openclassrooms.safetynetalerts.repository.FirestationRepository;
+import com.openclassrooms.safetynetalerts.repository.MedicalRecordRepository;
+import com.openclassrooms.safetynetalerts.repository.PersonRepository;
 
 @Service
 public class ComplexeRequestService {

@@ -1,11 +1,11 @@
-package com.openclassrooms.sefetynetalerts.service;
+package com.openclassrooms.safetynetalerts.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.openclassrooms.sefetynetalerts.model.MedicalRecord;
-import com.openclassrooms.sefetynetalerts.model.PersonIdentity;
-import com.openclassrooms.sefetynetalerts.repository.MedicalRecordRepository;
+import com.openclassrooms.safetynetalerts.model.MedicalRecord;
+import com.openclassrooms.safetynetalerts.model.PersonIdentity;
+import com.openclassrooms.safetynetalerts.repository.MedicalRecordRepository;
 
 import lombok.Data;
 

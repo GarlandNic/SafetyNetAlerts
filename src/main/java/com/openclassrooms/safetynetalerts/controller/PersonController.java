@@ -1,4 +1,4 @@
-package com.openclassrooms.sefetynetalerts.controller;
+package com.openclassrooms.safetynetalerts.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.openclassrooms.sefetynetalerts.model.Person;
-import com.openclassrooms.sefetynetalerts.model.PersonIdentity;
-import com.openclassrooms.sefetynetalerts.service.PersonService;
+import com.openclassrooms.safetynetalerts.model.Person;
+import com.openclassrooms.safetynetalerts.model.PersonIdentity;
+import com.openclassrooms.safetynetalerts.service.PersonService;
 
 @RestController
 public class PersonController {

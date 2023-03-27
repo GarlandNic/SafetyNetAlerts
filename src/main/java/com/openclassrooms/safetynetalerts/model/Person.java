@@ -1,4 +1,4 @@
-package com.openclassrooms.sefetynetalerts.model;
+package com.openclassrooms.safetynetalerts.model;
 
 import org.json.simple.JSONObject;
 

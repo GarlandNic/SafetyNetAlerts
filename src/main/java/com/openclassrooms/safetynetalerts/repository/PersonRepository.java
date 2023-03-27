@@ -1,4 +1,4 @@
-package com.openclassrooms.sefetynetalerts.repository;
+package com.openclassrooms.safetynetalerts.repository;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -6,8 +6,8 @@ import java.io.IOException;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Repository;
 
-import com.openclassrooms.sefetynetalerts.model.Person;
-import com.openclassrooms.sefetynetalerts.model.PersonIdentity;
+import com.openclassrooms.safetynetalerts.model.Person;
+import com.openclassrooms.safetynetalerts.model.PersonIdentity;
 
 @Repository
 public class PersonRepository extends JsonDataRepository {

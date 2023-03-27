@@ -1,4 +1,4 @@
-package com.openclassrooms.sefetynetalerts.model;
+package com.openclassrooms.safetynetalerts.model;
 
 import java.util.ArrayList;
 import java.util.List;

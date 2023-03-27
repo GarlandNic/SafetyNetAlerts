@@ -1,4 +1,4 @@
-package com.openclassrooms.sefetynetalerts.repository;
+package com.openclassrooms.safetynetalerts.repository;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.io.IOException;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Repository;
 
-import com.openclassrooms.sefetynetalerts.model.Firestation;
+import com.openclassrooms.safetynetalerts.model.Firestation;
 
 @Repository
 public class FirestationRepository extends JsonDataRepository {

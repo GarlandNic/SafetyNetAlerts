@@ -1,4 +1,4 @@
-package com.openclassrooms.sefetynetalerts.repository;
+package com.openclassrooms.safetynetalerts.repository;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -11,7 +11,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Repository;
 
-import com.openclassrooms.sefetynetalerts.model.AllData;
+import com.openclassrooms.safetynetalerts.model.AllData;
 
 @Repository
 public class JsonDataRepository {

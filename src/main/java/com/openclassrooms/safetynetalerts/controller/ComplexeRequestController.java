@@ -1,11 +1,11 @@
-package com.openclassrooms.sefetynetalerts.controller;
+package com.openclassrooms.safetynetalerts.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.openclassrooms.sefetynetalerts.service.ComplexeRequestService;
+import com.openclassrooms.safetynetalerts.service.ComplexeRequestService;
 
 @RestController
 public class ComplexeRequestController {

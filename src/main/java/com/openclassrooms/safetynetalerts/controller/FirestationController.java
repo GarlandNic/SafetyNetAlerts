@@ -1,4 +1,4 @@
-package com.openclassrooms.sefetynetalerts.controller;
+package com.openclassrooms.safetynetalerts.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.openclassrooms.sefetynetalerts.model.Firestation;
-import com.openclassrooms.sefetynetalerts.service.FirestationService;
+import com.openclassrooms.safetynetalerts.model.Firestation;
+import com.openclassrooms.safetynetalerts.service.FirestationService;
 
 @RestController
 public class FirestationController {

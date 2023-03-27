@@ -1,10 +1,10 @@
-package com.openclassrooms.sefetynetalerts.service;
+package com.openclassrooms.safetynetalerts.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.openclassrooms.sefetynetalerts.model.Firestation;
-import com.openclassrooms.sefetynetalerts.repository.FirestationRepository;
+import com.openclassrooms.safetynetalerts.model.Firestation;
+import com.openclassrooms.safetynetalerts.repository.FirestationRepository;
 
 import lombok.Data;
 
