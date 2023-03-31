@@ -21,13 +21,13 @@ class PersonServiceTest {
 	@Autowired
 	PersonService ps;
 	
-	// mocker le personrepository.save()
 	@MockBean
 	PersonRepository pr;
 
 	@Test
 	void testSavePerson() {
 		Mockito.when(pr.save(any(Person.class))).thenReturn(new Person("Alfred", "Nobel", null, null, null, null, null));
+		
 		Person p1 = new Person("Alfred", "Nobel", null, null, null, null, null);
 		Person p2 = ps.savePerson(p1);
 		
