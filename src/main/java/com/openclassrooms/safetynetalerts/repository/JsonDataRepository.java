@@ -17,7 +17,7 @@ public class JsonDataRepository {
 	
 	private AllData allData;
 	
-	private static final String DATA_PATH = "../../../resources/data.jon";
+	private static final String DATA_PATH = "../../../../../../resources/data.json";
 	
 	JsonDataRepository() throws FileNotFoundException, IOException, ParseException {
 		JSONParser parser = new JSONParser();
