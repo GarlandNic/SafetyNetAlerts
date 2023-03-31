@@ -1,5 +1,7 @@
 package com.openclassrooms.safetynetalerts.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,6 +38,8 @@ public class MedicalRecord {
 	@OneToOne @MapsId
 	private Person person;
 	
+	private static final SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+	
 	public MedicalRecord(String firstName, String lastName, Date birthdate, List<String> medications, List<String> allergies) {
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -47,7 +51,12 @@ public class MedicalRecord {
 	public MedicalRecord(JSONObject medicalRecord) {
 		this.firstName = (String) medicalRecord.get("firstName");
 		this.lastName = (String) medicalRecord.get("lastName");
-		this.birthdate = (Date) medicalRecord.get("birthdate");
+		try {
+			this.birthdate = (Date) formatter.parse((String) medicalRecord.get("birthdate"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		this.medications = new ArrayList<String>();
 		JSONArray listOfMedications = (JSONArray) medicalRecord.get("medications");
