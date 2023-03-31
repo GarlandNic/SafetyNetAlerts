@@ -17,11 +17,11 @@ public class AllData {
 	
 	private List<Firestation> listOfFirestations;
 	
-	public AllData(List<Person> listOfPersons, List<MedicalRecord> listOfMedicalRecords, List<Firestation> listOfFirestations) {
-		this.listOfPersons = listOfPersons;
-		this.listOfMedicalRecords = listOfMedicalRecords;
-		this.listOfFirestations = listOfFirestations;
-	}
+//	public AllData(List<Person> listOfPersons, List<MedicalRecord> listOfMedicalRecords, List<Firestation> listOfFirestations) {
+//		this.listOfPersons = listOfPersons;
+//		this.listOfMedicalRecords = listOfMedicalRecords;
+//		this.listOfFirestations = listOfFirestations;
+//	}
 	
 	public AllData(JSONArray listOfPersons, JSONArray listOfMedicalRecords, JSONArray listOfFirestations) {
 		this.listOfPersons = new ArrayList<Person>();
