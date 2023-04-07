@@ -8,12 +8,13 @@ import org.springframework.stereotype.Service;
 
 import com.openclassrooms.safetynetalerts.dto.Child;
 import com.openclassrooms.safetynetalerts.dto.Children;
-import com.openclassrooms.safetynetalerts.dto.HousesAndResidentsForFirestations;
+import com.openclassrooms.safetynetalerts.dto.HouseAndResidents;
 import com.openclassrooms.safetynetalerts.dto.PeopleForFirestation;
 import com.openclassrooms.safetynetalerts.dto.PeopleInAddress;
+import com.openclassrooms.safetynetalerts.dto.PersonDetails;
 import com.openclassrooms.safetynetalerts.dto.PersonForFirestation;
 import com.openclassrooms.safetynetalerts.dto.PersonalInformation;
-import com.openclassrooms.safetynetalerts.dto.PhonesForFirestation;
+import com.openclassrooms.safetynetalerts.model.MedicalRecord;
 import com.openclassrooms.safetynetalerts.model.Person;
 import com.openclassrooms.safetynetalerts.model.PersonIdentity;
 import com.openclassrooms.safetynetalerts.repository.FirestationRepository;
@@ -84,7 +85,7 @@ public class PersonService {
 		
 		listOfResidents.forEach(person -> {
 			if(isChild(person)) {
-				listOfChildren.add(new Child(person.getFirstName(), person.getLastName(), medicalRecordRepository.getMedicalRecord(person).getAge()));
+				listOfChildren.add(new Child(person.getFirstName(), person.getLastName(), getAge(person)));
 			} else {
 				listOfOtherResident.add(new PersonIdentity(person.getFirstName(), person.getLastName()));
 			}
@@ -94,18 +95,29 @@ public class PersonService {
 		
 		return (new Children(listOfChildren, listOfOtherResident));
 	}
+	
+	private int getAge(Person person) {
+		return medicalRecordRepository.getMedicalRecord(person).getAge();
+	}
 
 	private boolean isChild(Person person) {
-		int age = medicalRecordRepository.getMedicalRecord(person).getAge();
-		return (age <= 18);
+		return (getAge(person) <= 18);
 	}
 
 	//	http://localhost:8080/phoneAlert?firestation=<firestation_number>
 	//		Cette url doit retourner une liste des numéros de téléphone des résidents desservis par la caserne de
 	//		pompiers. Nous l'utiliserons pour envoyer des messages texte d'urgence à des foyers spécifiques.
-	public PhonesForFirestation getAllPhonesForFirestation(String firestation) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<String> getAllPhonesForFirestation(String stationNumber) {
+		
+		List<String> addresses = firestationRepository.getAdressesByNumber(stationNumber);
+
+		List<Person> listOfPersons = personRepository.getPersonsByAdresses(addresses);
+		
+		List<String> listOfPhones = new ArrayList<String>();
+		
+		listOfPersons.forEach(person -> listOfPhones.add(person.getPhone()));
+
+		return listOfPhones;
 	}
 
 	//	http://localhost:8080/fire?address=<address>
@@ -113,18 +125,46 @@ public class PersonService {
 	//		de pompiers la desservant. La liste doit inclure le nom, le numéro de téléphone, l'âge et les antécédents
 	//		médicaux (médicaments, posologie et allergies) de chaque personne.
 	public PeopleInAddress getAllPeopleInAddress(String address) {
-		// TODO Auto-generated method stub
-		return null;
+
+		List<Person> listOfPersons = personRepository.getPersonsByAdress(address);
+
+		String number = firestationRepository.getNumberByAdress(address);
+
+		List<PersonDetails> people = new ArrayList<PersonDetails>();
+		
+		listOfPersons.forEach(person -> {
+			people.add(new PersonDetails(person.getFirstName(), person.getLastName(), person.getPhone(), 
+					getAge(person), medicalRecordRepository.getMedicalRecord(person).getMedications(), 
+					medicalRecordRepository.getMedicalRecord(person).getAllergies()));
+		});
+
+		return (new PeopleInAddress(people, number));
 	}
 
 	//	http://localhost:8080/flood/stations?stations=<a list of station_numbers>
 	//		Cette url doit retourner une liste de tous les foyers desservis par la caserne. Cette liste doit regrouper les
 	//		personnes par adresse. Elle doit aussi inclure le nom, le numéro de téléphone et l'âge des habitants, et
 	//		faire figurer leurs antécédents médicaux (médicaments, posologie et allergies) à côté de chaque nom.
-	public HousesAndResidentsForFirestations getAllHousesAndResidentsForFirestations(
-			List<String> listOfStationNumbers) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<HouseAndResidents> getAllHousesAndResidentsForFirestations(List<String> listOfStationNumbers) {
+		
+		List<HouseAndResidents> listOfHouses = new ArrayList<HouseAndResidents>();
+		
+		listOfStationNumbers.forEach(number -> {
+			List<String> addresses = firestationRepository.getAdressesByNumber(number);
+			addresses.forEach(address -> {
+				List<PersonDetails> peopleDetails = new ArrayList<PersonDetails>();
+				List<Person> listOfPersons = personRepository.getPersonsByAdress(address);
+				listOfPersons.forEach(person -> {
+					peopleDetails.add(new PersonDetails(person.getFirstName(), person.getLastName(), person.getPhone(), 
+							getAge(person), medicalRecordRepository.getMedicalRecord(person).getMedications(), 
+							medicalRecordRepository.getMedicalRecord(person).getAllergies()));
+				});
+				
+				listOfHouses.add(new HouseAndResidents(address, peopleDetails));
+			});
+		});
+		
+		return listOfHouses;
 	}
 
 	//	http://localhost:8080/personInfo?firstName=<firstName>&lastName=<lastName>
@@ -132,15 +172,24 @@ public class PersonService {
 	//		posologie, allergies) de chaque habitant. Si plusieurs personnes portent le même nom, elles doivent
 	//		toutes apparaître.
 	public PersonalInformation getPersonalInformation(String firstName, String lastName) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Person person = personRepository.getPersonByName(firstName, lastName);
+		MedicalRecord medic = medicalRecordRepository.getMedicalRecord(person);
+
+		return new PersonalInformation(firstName, lastName, person.getAddress(), getAge(person), medic.getMedications(), medic.getAllergies());
 	}
 
 	//	http://localhost:8080/communityEmail?city=<city>
 	//		Cette url doit retourner les adresses mail de tous les habitants de la ville
 	public List<String> getAllEmailForCity(String city) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<String> listOfEmail = new ArrayList<String>();
+		
+		List<Person> people = personRepository.getPersonByCity(city);
+		
+		people.forEach(person -> listOfEmail.add(person.getEmail()));
+
+		return listOfEmail;
 	}
 
 }

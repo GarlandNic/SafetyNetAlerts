@@ -15,12 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.openclassrooms.safetynetalerts.dto.PeopleForFirestation;
 import com.openclassrooms.safetynetalerts.dto.PeopleInAddress;
 import com.openclassrooms.safetynetalerts.dto.PersonalInformation;
-import com.openclassrooms.safetynetalerts.dto.PhonesForFirestation;
 import com.openclassrooms.safetynetalerts.model.Person;
 import com.openclassrooms.safetynetalerts.model.PersonIdentity;
 import com.openclassrooms.safetynetalerts.dto.Child;
 import com.openclassrooms.safetynetalerts.dto.Children;
-import com.openclassrooms.safetynetalerts.dto.HousesAndResidentsForFirestations;
+import com.openclassrooms.safetynetalerts.dto.HouseAndResidents;
 import com.openclassrooms.safetynetalerts.service.PersonService;
 
 @RestController
@@ -77,7 +76,7 @@ public class PersonController {
 	//		Cette url doit retourner une liste des numéros de téléphone des résidents desservis par la caserne de
 	//		pompiers. Nous l'utiliserons pour envoyer des messages texte d'urgence à des foyers spécifiques.
 	@GetMapping("/phoneAlert")
-	public PhonesForFirestation getAllPhonesForFirestation(@RequestParam("firestation") final String firestation) {
+	public List<String> getAllPhonesForFirestation(@RequestParam("firestation") final String firestation) {
 		return personService.getAllPhonesForFirestation(firestation);
 	}
 	
@@ -95,7 +94,7 @@ public class PersonController {
 	//		personnes par adresse. Elle doit aussi inclure le nom, le numéro de téléphone et l'âge des habitants, et
 	//		faire figurer leurs antécédents médicaux (médicaments, posologie et allergies) à côté de chaque nom.
 	@GetMapping("/flood/stations")
-	public HousesAndResidentsForFirestations getAllHousesAndResidentsForFirestations(@RequestParam("stations") final List<String> listOfStationNumbers) {
+	public List<HouseAndResidents> getAllHousesAndResidentsForFirestations(@RequestParam("stations") final List<String> listOfStationNumbers) {
 		return personService.getAllHousesAndResidentsForFirestations(listOfStationNumbers);
 	}
 

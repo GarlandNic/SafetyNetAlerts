@@ -50,4 +50,20 @@ public class PersonRepository extends JsonDataRepository {
 		return listOfPersons;
 	}
 
+	public Person getPersonByName(String firstName, String lastName) {
+		return this.getAllData().getListOfPersons().stream()
+				.filter(person -> (person.getFirstName().equals(firstName) && person.getLastName().equals(lastName)))
+				.findFirst().orElse(null);
+	}
+
+	public List<Person> getPersonByCity(String city) {
+		List<Person> listOfPersons = new ArrayList<Person>();
+		this.getAllData().getListOfPersons().forEach(person -> {
+			if( city.equals(person.getCity()) ) {
+				listOfPersons.add(person);
+			}
+			});
+		return listOfPersons;
+	}
+
 }
