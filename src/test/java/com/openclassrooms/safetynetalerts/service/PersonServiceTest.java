@@ -44,4 +44,9 @@ class PersonServiceTest {
 		
 		assertThat(p2).usingRecursiveComparison().isEqualTo(p1);
 	}
+	
+	@Test
+	void testGetAllPeopleForFirestation() {
+		
+	}
 }

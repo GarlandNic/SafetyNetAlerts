@@ -34,8 +34,4 @@ public class MedicalRecordService {
 		return saveMedicalRecord(medicalRecord);
 	}
 
-	public boolean isChild(Person person) {
-		int age = medicalRecordRepository.getMedicalRecord(person).getAge();
-		return (age <= 18);
-	}
 }

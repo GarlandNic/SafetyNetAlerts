@@ -19,19 +19,18 @@ public class PeopleForFirestation {
 	
 	int childrenNumber;
 	
-	PeopleForFirestation() {
+	public PeopleForFirestation() {
 		this.listOfPeople = new ArrayList<PersonForFirestation>();
 		this.adultsNumber = 0;
 		this.childrenNumber = 0;
 	}
 	
-	public PeopleForFirestation(List<Person> listOfPerson, MedicalRecordService medicalRecordService) {
-		this();
-		listOfPerson.forEach(person -> {
-			this.listOfPeople.add(new PersonForFirestation(person));
-			if(medicalRecordService.isChild(person)) this.childrenNumber++;
-			else this.adultsNumber++;
-		});
+	public int incrementAdultsNumber() {
+		return (this.adultsNumber++);
 	}
-
+	
+	public int incrementChildrenNumber() {
+		return (this.childrenNumber++);
+	}
+	
 }

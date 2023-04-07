@@ -2,12 +2,15 @@ package com.openclassrooms.safetynetalerts.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.openclassrooms.safetynetalerts.dto.PeopleForFirestation;
 import com.openclassrooms.safetynetalerts.model.Person;
 import com.openclassrooms.safetynetalerts.model.PersonIdentity;
 import com.openclassrooms.safetynetalerts.service.PersonService;
@@ -41,6 +44,16 @@ public class PersonController {
 			PersonIdentity personId = new PersonIdentity(firstName, lastName);
 			return personService.replacePerson(personId, person);
 		}
+	}
+	
+	// firestation?stationNumber=<**>
+	// cette url doit retourner une liste des personnes couverts par la caserne de pompiers correspondante. 
+	// Donc si le num de la station est =1 elle doit renvoyer les hab couverts par la station 1. 
+	// la liste doit inclure les informations spécifiques suivantes : prénom, nom, address, numéro de tel. 
+	// de plus elle doit fournir un décompte du nombre d'adultes et du nombre d'enfants (18 ans ou mois)
+	@GetMapping("/firestation")
+	public PeopleForFirestation getAllPeopleForFirestation(@RequestParam("stationNumber") final String stationNumber) {
+		return personService.getAllPeopleForFirestation(stationNumber);
 	}
 
 }
