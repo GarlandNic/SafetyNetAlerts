@@ -55,7 +55,7 @@ class MedicalRecordServiceTest {
 		Mockito.when(mrr.getMedicalRecord(any(Person.class))).thenReturn(new MedicalRecord("Alfred", "Nobel", LocalDate.of(1833, 10, 21), null, null));
 		
 		Person p1 = new Person("Alfred", "Nobel", null, null, null, null, null);
-		boolean child1 = mrs.isChildren(p1);
+		boolean child1 = mrs.isChild(p1);
 		
 		assertFalse(child1);
 	}
@@ -65,7 +65,7 @@ class MedicalRecordServiceTest {
 		Mockito.when(mrr.getMedicalRecord(any(Person.class))).thenReturn(new MedicalRecord("Alfred190", "Nobel190", LocalDate.of(2013, 10, 21), null, null));
 		
 		Person p1 = new Person("Alfred190", "Nobel190", null, null, null, null, null);
-		boolean child1 = mrs.isChildren(p1);
+		boolean child1 = mrs.isChild(p1);
 		
 		assertTrue(child1);
 	}

@@ -25,6 +25,9 @@ public class ComplexeRequestService {
 	@Autowired
 	private MedicalRecordRepository medicalRecordRepository;
 
+	@Autowired
+	private MedicalRecordService medicalRecordService;
+
 	// firestation?stationNumber=<**>
 	// cette url doit retourner une liste des personnes couverts par la caserne de pompiers correspondante. 
 	// Donc si le num de la station est =1 elle doit renvoyer les hab couverts par la station 1. 
@@ -32,11 +35,11 @@ public class ComplexeRequestService {
 	// de plus elle doit fournir un décompte du nombre d'adultes et du nombre d'enfants (18 ans ou moins)
 	public PeopleForFirestation getAllPeopleForFirestation(String stationNumber) {
 		
-		String adress = firestationRepository.getAdressByNumber(stationNumber);
+		List<String> addresses = firestationRepository.getAdressesByNumber(stationNumber);
 
-		List<Person> listOfPersons = personRepository.getPersonsByAdress(adress);
+		List<Person> listOfPersons = personRepository.getPersonsByAdress(addresses);
 		
-		return new PeopleForFirestation(listOfPersons);
+		return new PeopleForFirestation(listOfPersons, medicalRecordService);
 	}
 
 }

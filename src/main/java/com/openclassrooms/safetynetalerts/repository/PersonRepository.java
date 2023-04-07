@@ -2,6 +2,7 @@ package com.openclassrooms.safetynetalerts.repository;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.simple.parser.ParseException;
@@ -29,8 +30,14 @@ public class PersonRepository extends JsonDataRepository {
 		return person;
 	}
 
-	public List<Person> getPersonsByAdress(String adress) {
-		return this.getAllData().getListOfPersons().stream().filter(person -> person.getAddress().equals(adress)).toList();
+	public List<Person> getPersonsByAdress(List<String> addresses) {
+		List<Person> listOfPersons = new ArrayList<Person>();
+		this.getAllData().getListOfPersons().forEach(person -> {
+			if( addresses.contains(person.getAddress()) ) {
+				listOfPersons.add(person);
+			}
+			});
+		return listOfPersons;
 	}
 
 }

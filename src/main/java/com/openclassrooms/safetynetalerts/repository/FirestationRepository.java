@@ -2,6 +2,8 @@ package com.openclassrooms.safetynetalerts.repository;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Repository;
@@ -26,10 +28,13 @@ public class FirestationRepository extends JsonDataRepository {
 		return firestation;
 	}
 
-	public String getAdressByNumber(String stationNumber) {
-		Firestation f1 = this.getAllData().getListOfFirestations().stream()
-				.filter(firestation -> firestation.getStation().equals(stationNumber)).findFirst().orElse(null);
-		if(f1==null) return null;
-		return f1.getAddress();
+	public List<String> getAdressesByNumber(String stationNumber) {
+		List<String> addresses = new ArrayList<String>();
+		this.getAllData().getListOfFirestations().forEach(firestation -> {
+			if(firestation.getStation().equals(stationNumber)) {
+				addresses.add(firestation.getAddress());
+			}
+			});
+		return addresses;
 	}
 }

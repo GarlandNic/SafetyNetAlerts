@@ -19,20 +19,17 @@ public class PeopleForFirestation {
 	
 	int childrenNumber;
 	
-	@Autowired
-	private MedicalRecordService medicalRecordService;
-	
 	PeopleForFirestation() {
 		this.listOfPeople = new ArrayList<PersonForFirestation>();
 		this.adultsNumber = 0;
 		this.childrenNumber = 0;
 	}
 	
-	public PeopleForFirestation(List<Person> listOfPerson) {
+	public PeopleForFirestation(List<Person> listOfPerson, MedicalRecordService medicalRecordService) {
 		this();
 		listOfPerson.forEach(person -> {
 			this.listOfPeople.add(new PersonForFirestation(person));
-			if(medicalRecordService.isChildren(person)) this.childrenNumber++;
+			if(medicalRecordService.isChild(person)) this.childrenNumber++;
 			else this.adultsNumber++;
 		});
 	}
