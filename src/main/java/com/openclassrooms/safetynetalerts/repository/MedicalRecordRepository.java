@@ -7,6 +7,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Repository;
 
 import com.openclassrooms.safetynetalerts.model.MedicalRecord;
+import com.openclassrooms.safetynetalerts.model.Person;
 import com.openclassrooms.safetynetalerts.model.PersonIdentity;
 
 @Repository
@@ -26,6 +27,12 @@ public class MedicalRecordRepository extends JsonDataRepository {
 		this.getAllData().getListOfMedicalRecords()
 			.add(medicalRecord);
 		return medicalRecord;
+	}
+
+	public MedicalRecord getMedicalRecord(Person person) {
+		return this.getAllData().getListOfMedicalRecords().stream()
+			.filter(medicalRecord -> ( medicalRecord.getFirstName().equals(person.getFirstName()) && 
+							medicalRecord.getLastName().equals(person.getLastName()) )).findFirst().orElse(null);			
 	}
 
 }

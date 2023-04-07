@@ -1,7 +1,9 @@
 package com.openclassrooms.safetynetalerts.model;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,7 +31,7 @@ public class MedicalRecord {
 	@Id
 	private String lastName;
 	
-	private Date birthdate;
+	private LocalDate birthdate;
 	
 	private List<String> medications;
 	
@@ -38,9 +40,9 @@ public class MedicalRecord {
 	@OneToOne @MapsId
 	private Person person;
 	
-	private static final SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+	private static final DateTimeFormatter  formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 	
-	public MedicalRecord(String firstName, String lastName, Date birthdate, List<String> medications, List<String> allergies) {
+	public MedicalRecord(String firstName, String lastName, LocalDate birthdate, List<String> medications, List<String> allergies) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthdate = birthdate;
@@ -51,12 +53,7 @@ public class MedicalRecord {
 	public MedicalRecord(JSONObject medicalRecord) {
 		this.firstName = (String) medicalRecord.get("firstName");
 		this.lastName = (String) medicalRecord.get("lastName");
-		try {
-			this.birthdate = (Date) formatter.parse((String) medicalRecord.get("birthdate"));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		this.birthdate = LocalDate.parse((String) medicalRecord.get("birthdate"), formatter);
 		
 		this.medications = new ArrayList<String>();
 		JSONArray listOfMedications = (JSONArray) medicalRecord.get("medications");
@@ -75,6 +72,11 @@ public class MedicalRecord {
 		medicalRecord.put("medications", JSONArray.toJSONString(this.medications));
 		medicalRecord.put("allergies", JSONArray.toJSONString(this.allergies));
 		return medicalRecord;
+	}
+
+	public int getAge() {
+		LocalDate today = LocalDate.now();
+		return Period.between(this.birthdate, today).getYears();
 	}
 
 }

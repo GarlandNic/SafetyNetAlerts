@@ -71,4 +71,5 @@ public class Person {
 		person.put("email", this.email);
 		return person;
 	}
+
 }

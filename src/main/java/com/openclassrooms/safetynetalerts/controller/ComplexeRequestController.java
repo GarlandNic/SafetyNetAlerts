@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.openclassrooms.safetynetalerts.dto.PeopleForFirestation;
 import com.openclassrooms.safetynetalerts.service.ComplexeRequestService;
 
 @RestController
@@ -19,9 +20,8 @@ public class ComplexeRequestController {
 	// la liste doit inclure les informations spécifiques suivantes : prénom, nom, address, numéro de tel. 
 	// de plus elle doit fournir un décompte du nombre d'adultes et du nombre d'enfants (18 ans ou mois)
 	@GetMapping("/firestation")
-	public String getAllPeopleForFirestation(@RequestParam("stationNumber") final String stationNumber) {
+	public PeopleForFirestation getAllPeopleForFirestation(@RequestParam("stationNumber") final String stationNumber) {
 		return complexeRequestService.getAllPeopleForFirestation(stationNumber);
 	}
-
 
 }

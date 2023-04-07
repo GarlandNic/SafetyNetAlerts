@@ -26,4 +26,10 @@ public class FirestationRepository extends JsonDataRepository {
 		return firestation;
 	}
 
+	public String getAdressByNumber(String stationNumber) {
+		Firestation f1 = this.getAllData().getListOfFirestations().stream()
+				.filter(firestation -> firestation.getStation().equals(stationNumber)).findFirst().orElse(null);
+		if(f1==null) return null;
+		return f1.getAddress();
+	}
 }
