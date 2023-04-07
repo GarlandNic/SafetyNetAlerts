@@ -30,10 +30,20 @@ public class PersonRepository extends JsonDataRepository {
 		return person;
 	}
 
-	public List<Person> getPersonsByAdress(List<String> addresses) {
+	public List<Person> getPersonsByAdresses(List<String> addresses) {
 		List<Person> listOfPersons = new ArrayList<Person>();
 		this.getAllData().getListOfPersons().forEach(person -> {
 			if( addresses.contains(person.getAddress()) ) {
+				listOfPersons.add(person);
+			}
+			});
+		return listOfPersons;
+	}
+
+	public List<Person> getPersonsByAdress(String address) {
+		List<Person> listOfPersons = new ArrayList<Person>();
+		this.getAllData().getListOfPersons().forEach(person -> {
+			if( address.equals(person.getAddress()) ) {
 				listOfPersons.add(person);
 			}
 			});
