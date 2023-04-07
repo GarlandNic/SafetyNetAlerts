@@ -32,6 +32,4 @@ public class MedicalRecordService {
 		deleteMedicalRecord(personId);
 		return saveMedicalRecord(medicalRecord);
 	}
-	
-	
 }

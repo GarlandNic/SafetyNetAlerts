@@ -32,5 +32,4 @@ public class FirestationService {
 		Firestation savedFirestation = new Firestation(address, newStation);
 		return saveFirestation(savedFirestation);
 	}
-	
 }

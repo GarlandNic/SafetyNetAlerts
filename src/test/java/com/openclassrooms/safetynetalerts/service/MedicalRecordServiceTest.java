@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.openclassrooms.safetynetalerts.model.MedicalRecord;
+import com.openclassrooms.safetynetalerts.model.PersonIdentity;
 import com.openclassrooms.safetynetalerts.repository.MedicalRecordRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,4 +35,13 @@ class MedicalRecordServiceTest {
 		assertThat(mr2).usingRecursiveComparison().isEqualTo(mr1);
 	}
 
+	@Test
+	void testReplaceMedicalRecord() {
+		Mockito.when(mrr.save(any(MedicalRecord.class))).thenReturn(new MedicalRecord("Alfred", "Nobel", null, null, null));
+		
+		MedicalRecord mr1 = new MedicalRecord("Alfred", "Nobel", null, null, null);
+		MedicalRecord mr2 = mrs.replaceMedicalRecord((new PersonIdentity("Alfred","Nobel")), mr1);
+		
+		assertThat(mr2).usingRecursiveComparison().isEqualTo(mr1);
+	}
 }

@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.openclassrooms.safetynetalerts.model.Person;
+import com.openclassrooms.safetynetalerts.model.PersonIdentity;
 import com.openclassrooms.safetynetalerts.repository.PersonRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,5 +34,14 @@ class PersonServiceTest {
 		
 		assertThat(p2).usingRecursiveComparison().isEqualTo(p1);
 	}
-
+	
+	@Test
+	void testReplacePerson() {
+		Mockito.when(pr.save(any(Person.class))).thenReturn(new Person("Alfred", "Nobel", null, null, null, null, null));
+		
+		Person p1 = new Person("Alfred", "Nobel", null, null, null, null, null);
+		Person p2 = ps.replacePerson((new PersonIdentity("Alfred","Nobel")), p1);
+		
+		assertThat(p2).usingRecursiveComparison().isEqualTo(p1);
+	}
 }

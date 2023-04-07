@@ -34,4 +34,13 @@ class FirestationServiceTest {
 		assertThat(f2).usingRecursiveComparison().isEqualTo(f1);
 	}
 
+	@Test
+	void testReplaceFirestation() {
+		Mockito.when(fr.save(any(Firestation.class))).thenReturn(new Firestation("Here", "42"));
+		
+		Firestation f1 = new Firestation("Here", "42");
+		Firestation f2 = fs.replaceFirestation("Here", "42");
+		
+		assertThat(f2).usingRecursiveComparison().isEqualTo(f1);
+	}
 }
