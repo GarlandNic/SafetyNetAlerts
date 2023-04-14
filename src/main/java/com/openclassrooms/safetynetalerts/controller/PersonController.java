@@ -69,7 +69,7 @@ public class PersonController {
 	//		membres du foyer. S'il n'y a pas d'enfant, cette url peut renvoyer une chaîne vide.
 	@GetMapping("/childAlert")
 	public Children getAllChildForAddress(@RequestParam("address") final String address) {
-		return personService.getAllChildForAddress(address);
+		return personService.getAllChildrenForAddress(address);
 	}
 	
 	//	http://localhost:8080/phoneAlert?firestation=<firestation_number>

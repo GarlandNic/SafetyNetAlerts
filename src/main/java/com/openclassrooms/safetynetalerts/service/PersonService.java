@@ -27,6 +27,8 @@ import lombok.Data;
 @Service
 public class PersonService {
 
+	private final int MAJORITE = 18;
+	
 	@Autowired
 	private PersonRepository personRepository;
 	
@@ -78,7 +80,7 @@ public class PersonService {
 	//		Cette url doit retourner une liste d'enfants (tout individu âgé de 18 ans ou moins) habitant à cette adresse.
 	//		La liste doit comprendre le prénom et le nom de famille de chaque enfant, son âge et une liste des autres
 	//		membres du foyer. S'il n'y a pas d'enfant, cette url peut renvoyer une chaîne vide.
-	public Children getAllChildForAddress(String address) {
+	public Children getAllChildrenForAddress(String address) {
 		List<Person> listOfResidents = personRepository.getPersonsByAdress(address);
 		List<Child> listOfChildren = new ArrayList<Child>();
 		List<PersonIdentity> listOfOtherResident = new ArrayList<PersonIdentity>();
@@ -101,7 +103,7 @@ public class PersonService {
 	}
 
 	private boolean isChild(Person person) {
-		return (getAge(person) <= 18);
+		return (getAge(person) <= MAJORITE);
 	}
 
 	//	http://localhost:8080/phoneAlert?firestation=<firestation_number>
