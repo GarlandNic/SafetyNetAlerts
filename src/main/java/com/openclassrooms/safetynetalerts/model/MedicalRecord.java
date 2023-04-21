@@ -1,11 +1,9 @@
 package com.openclassrooms.safetynetalerts.model;
 
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.json.simple.JSONArray;
@@ -62,16 +60,6 @@ public class MedicalRecord {
 		this.allergies = new ArrayList<String>();
 		JSONArray listOfAllergies = (JSONArray) medicalRecord.get("allergies");
 		listOfAllergies.forEach(allergie -> this.allergies.add((String) allergie));
-	}
-
-	public JSONObject asJson() {
-		JSONObject medicalRecord = new JSONObject();
-		medicalRecord.put("firstName", this.firstName);
-		medicalRecord.put("lastName", this.lastName);
-		medicalRecord.put("birthdate", this.birthdate);
-		medicalRecord.put("medications", JSONArray.toJSONString(this.medications));
-		medicalRecord.put("allergies", JSONArray.toJSONString(this.allergies));
-		return medicalRecord;
 	}
 
 	public int getAge() {

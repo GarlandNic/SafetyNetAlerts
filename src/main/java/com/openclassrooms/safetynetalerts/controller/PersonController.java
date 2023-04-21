@@ -2,6 +2,8 @@ package com.openclassrooms.safetynetalerts.controller;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,18 +27,22 @@ import com.openclassrooms.safetynetalerts.service.PersonService;
 @RestController
 public class PersonController {
 	
+	private final static Logger logger = LogManager.getLogger("PersonController");
+	
 	@Autowired
 	private PersonService personService;
 	
 	// POST
 	@PostMapping("/person")
 	public Person postPerson(@RequestBody Person person) {
+		logger.info("controller - postPerson");
 		return personService.savePerson(person);
 	}
 	
 	// DELETE
 	@DeleteMapping("/person/{firstName}/{lastName}")
 	public void deletePerson(@PathVariable("firstName") final String firstName, @PathVariable("lastName") final String lastName) {
+		logger.info("controller - deletePerson");
 		PersonIdentity personId = new PersonIdentity(firstName, lastName);
 		personService.deletePerson(personId);
 	}
@@ -44,8 +50,9 @@ public class PersonController {
 	// PUT
 	@PutMapping("/person/{firstName}/{lastName}")
 	public Person updatePerson(@PathVariable("firstName") final String firstName, @PathVariable("lastName") final String lastName, @RequestBody Person person) {
+		logger.info("controller - updatePerson");
 		if(!person.getFirstName().equals(firstName) || !person.getLastName().equals(lastName)) {
-			// person not found ! (log)
+			logger.warn("controller - updatePerson : Person not found !");
 			return null;
 		} else {
 			PersonIdentity personId = new PersonIdentity(firstName, lastName);
@@ -60,6 +67,7 @@ public class PersonController {
 	// de plus elle doit fournir un décompte du nombre d'adultes et du nombre d'enfants (18 ans ou mois)
 	@GetMapping("/firestation")
 	public PeopleForFirestation getAllPeopleForFirestation(@RequestParam("stationNumber") final String stationNumber) {
+		logger.info("controller - getAllPeopleForFirestation");
 		return personService.getAllPeopleForFirestation(stationNumber);
 	}
 	
@@ -69,6 +77,7 @@ public class PersonController {
 	//		membres du foyer. S'il n'y a pas d'enfant, cette url peut renvoyer une chaîne vide.
 	@GetMapping("/childAlert")
 	public Children getAllChildForAddress(@RequestParam("address") final String address) {
+		logger.info("controller - getAllChildForAddress");
 		return personService.getAllChildrenForAddress(address);
 	}
 	
@@ -77,6 +86,7 @@ public class PersonController {
 	//		pompiers. Nous l'utiliserons pour envoyer des messages texte d'urgence à des foyers spécifiques.
 	@GetMapping("/phoneAlert")
 	public List<String> getAllPhonesForFirestation(@RequestParam("firestation") final String firestation) {
+		logger.info("controller - getAllPhonesForFirestation");
 		return personService.getAllPhonesForFirestation(firestation);
 	}
 	
@@ -86,6 +96,7 @@ public class PersonController {
 	//		médicaux (médicaments, posologie et allergies) de chaque personne.
 	@GetMapping("/fire")
 	public PeopleInAddress getAllPeopleInAddress(@RequestParam("address") final String address) {
+		logger.info("controller - getAllPeopleInAddress");
 		return personService.getAllPeopleInAddress(address);
 	}
 
@@ -95,6 +106,7 @@ public class PersonController {
 	//		faire figurer leurs antécédents médicaux (médicaments, posologie et allergies) à côté de chaque nom.
 	@GetMapping("/flood/stations")
 	public List<HouseAndResidents> getAllHousesAndResidentsForFirestations(@RequestParam("stations") final List<String> listOfStationNumbers) {
+		logger.info("controller - getAllHousesAndResidentsForFirestations");
 		return personService.getAllHousesAndResidentsForFirestations(listOfStationNumbers);
 	}
 
@@ -104,6 +116,7 @@ public class PersonController {
 	//		toutes apparaître.
 	@GetMapping("/persinInfo")
 	public PersonalInformation getPersonalInformation(@RequestParam("firstName") final String firstName, @RequestParam("lastName") final String lastName) {
+		logger.info("controller - getPersonalInformation");
 		return personService.getPersonalInformation(firstName, lastName);
 	}
 
@@ -111,6 +124,7 @@ public class PersonController {
 	//		Cette url doit retourner les adresses mail de tous les habitants de la ville
 	@GetMapping("/communityEmail")
 	public List<String> getAllEmailForCity(@RequestParam("city") final String city) {
+		logger.info("controller - getAllEmailForCity");
 		return personService.getAllEmailForCity(city);
 	}
 

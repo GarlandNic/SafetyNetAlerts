@@ -11,8 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.openclassrooms.safetynetalerts.model.Firestation;
 import com.openclassrooms.safetynetalerts.service.FirestationService;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 @RestController
 public class FirestationController {
+	
+	private final static Logger logger = LogManager.getLogger("FirestationController");
 	
 	@Autowired
 	private FirestationService firestationService;
@@ -20,20 +25,23 @@ public class FirestationController {
 	// POST
 	@PostMapping("/firestation")
 	public Firestation postFirestation(@RequestBody Firestation firestation) {
+		logger.info("controller - postFirestation");
 		return firestationService.saveFirestation(firestation);
 	}
 	
 	// DELETE
 	@DeleteMapping("/firestation/{address}")
 	public void deleteFirestation(@PathVariable("address") final String address) {
+		logger.info("controller - deleteFirestation");
 		firestationService.deleteFirestation(address);
 	}
 	
 	// PUT
 	@PutMapping("/firestation/{address}")
 	public Firestation updateFirestation(@PathVariable("address") final String address, @RequestBody Firestation firestation) {
+		logger.info("controller - updateFirestation");
 		if(!firestation.getAddress().equals(address)) {
-			// firestation not found ! (log)
+			logger.warn("controller - updateFirestation : firestation not found !");
 			return null;
 		} else {
 			return firestationService.replaceFirestation(address, firestation.getStation());

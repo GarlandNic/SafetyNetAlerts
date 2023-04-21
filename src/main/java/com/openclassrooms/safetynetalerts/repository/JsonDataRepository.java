@@ -24,7 +24,6 @@ public class JsonDataRepository {
 		JSONParser parser = new JSONParser();
 		ClassLoader classLoader = getClass().getClassLoader(); 
 		JSONObject jsonObject = (JSONObject) parser.parse(new InputStreamReader(classLoader.getResourceAsStream(DATA_PATH), "UTF-8"));
-//		JSONObject jsonObject = (JSONObject) parser.parse(new FileReader(DATA_PATH));
 		JSONArray jsonPersons = (JSONArray) jsonObject.get("persons");
 		JSONArray jsonFirestations = (JSONArray) jsonObject.get("firestations");
 		JSONArray jsonMedicalRecords = (JSONArray) jsonObject.get("medicalrecords");
@@ -39,9 +38,4 @@ public class JsonDataRepository {
 		this.allData = allData;
 	}
 
-/*
-public void saveAllData() throws IOException {
-		this.allData.asJson().writeJSONString(new FileWriter(DATA_PATH));
-	}
-*/
 }

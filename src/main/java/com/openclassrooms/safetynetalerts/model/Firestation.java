@@ -1,6 +1,5 @@
 package com.openclassrooms.safetynetalerts.model;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import jakarta.persistence.Entity;
@@ -31,13 +30,6 @@ public class Firestation {
 	public Firestation(JSONObject jsonFirestation) {
 		this.address = (String) jsonFirestation.get("address");
 		this.station = (String) jsonFirestation.get("station");
-	}
-
-	public JSONObject asJson() {
-		JSONObject jsonFirestation = new JSONObject();
-		jsonFirestation.put("address", this.address);
-		jsonFirestation.put("station", this.station);
-		return jsonFirestation;
 	}
 
 }
