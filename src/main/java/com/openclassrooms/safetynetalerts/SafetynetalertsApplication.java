@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 public class SafetynetalertsApplication implements CommandLineRunner {
 //public class SafetynetalertsApplication {
 
+	@Generated
 	public static void main(String[] args) {
 		SpringApplication.run(SafetynetalertsApplication.class, args);
 	}

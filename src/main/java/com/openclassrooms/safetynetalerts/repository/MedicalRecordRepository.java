@@ -19,8 +19,8 @@ public class MedicalRecordRepository extends JsonDataRepository {
 
 	public void deleteById(PersonIdentity personId) {
 		this.getAllData().getListOfMedicalRecords()
-			.removeIf(medicalRecord -> medicalRecord.getFirstName() == personId.getFirstName() 
-				&& medicalRecord.getLastName() == personId.getLastName());
+			.removeIf(medicalRecord -> medicalRecord.getFirstName().equals(personId.getFirstName()) 
+				&& medicalRecord.getLastName().equals(personId.getLastName()));
 	}
 
 	public MedicalRecord save(MedicalRecord medicalRecord) {

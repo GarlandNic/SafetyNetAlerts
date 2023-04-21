@@ -56,13 +56,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-						<exclusions>
+			<exclusions>
 				<exclusion>
 					<groupId>org.junit.vintage</groupId>
 					<artifactId>junit-vintage-engine</artifactId>
 				</exclusion>
 			</exclusions>
-
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.restdocs</groupId>
@@ -118,6 +117,17 @@
 				<groupId>org.jacoco</groupId>
   				<artifactId>jacoco-maven-plugin</artifactId>
   				<version>0.8.8</version>
+  				
+  				<configuration>
+        			<excludes>
+			            <exclude>**/controller/*</exclude>
+			            <exclude>**/dto/*</exclude>
+			            <exclude>**/model/*</exclude>
+			            <exclude>**/repository/*</exclude>
+			            <exclude>**/safetynetalerts/Generated.java</exclude>
+			        </excludes>
+			    </configuration>
+			    
   				<executions>
      				<!--first execution : for preparing JaCoCo runtime agent-->
      				<execution>
@@ -133,7 +143,7 @@
                			<goals>
                				<goal>report</goal>
                			</goals>
-        			</execution>
+       			</execution>
     			</executions>
 			</plugin>
 		</plugins>

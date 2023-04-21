@@ -2,11 +2,13 @@ package com.openclassrooms.safetynetalerts.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -68,21 +70,23 @@ class PersonServiceTest {
 	
 	@Test
 	void testGetAllPeopleForFirestation() {
-		List<String> mockAdress = new ArrayList<String>();
-		mockAdress.add("ici");
+		List<String> mockAdress = Arrays.asList(new String[] {"ici"});
 		Mockito.when(fRepo.getAdressesByNumber("1")).thenReturn(mockAdress);
 		
-		Person mockPerson = new Person("Alfred", "Nobel", "ici", null, null, null, null);
-		List<Person> mockPeople = new ArrayList<Person>();
-		mockPeople.add(mockPerson);
+		Person mockPersonFather = new Person("Alfred", "Nobel", "ici", null, null, null, null);
+		Person mockPersonSon = new Person("Alfred Junior", "Nobel", "ici", null, null, null, null);
+		List<Person> mockPeople = Arrays.asList(new Person[] {mockPersonFather, mockPersonSon});
 		Mockito.when(pRepo.getPersonsByAdresses(mockAdress)).thenReturn(mockPeople);
 		
-		MedicalRecord mockMedicalRecord = new MedicalRecord("Alfred", "Nobel", LocalDate.of(1833, 10, 21), null, null);
-		Mockito.when(mRepo.getMedicalRecord(mockPerson)).thenReturn(mockMedicalRecord);
+		MedicalRecord mockMedicalRecordFather = new MedicalRecord("Alfred", "Nobel", LocalDate.of(1833, 10, 21), null, null);
+		Mockito.when(mRepo.getMedicalRecord(mockPersonFather)).thenReturn(mockMedicalRecordFather);
+		
+		MedicalRecord mockMedicalRecordSon = new MedicalRecord("Alfred", "Nobel", LocalDate.of(2013, 10, 21), null, null);
+		Mockito.when(mRepo.getMedicalRecord(mockPersonSon)).thenReturn(mockMedicalRecordSon);
 		
 		PeopleForFirestation result = pS.getAllPeopleForFirestation("1");
 		
-		assertEquals(0, result.getChildrenNumber());
+		assertEquals(1, result.getChildrenNumber());
 		assertEquals(1, result.getAdultsNumber());
 		assertEquals("Alfred", result.getListOfPeople().get(0).getFirstName());
 	}
@@ -91,9 +95,7 @@ class PersonServiceTest {
 	void testGetAllChildForAddress() {
 		Person mockPersonFather = new Person("Alfred", "Nobel", "ici", null, null, null, null);
 		Person mockPersonSon = new Person("Alfred Junior", "Nobel", "ici", null, null, null, null);
-		List<Person> mockPeople = new ArrayList<Person>();
-		mockPeople.add(mockPersonFather);
-		mockPeople.add(mockPersonSon);
+		List<Person> mockPeople = Arrays.asList(new Person[] {mockPersonFather, mockPersonSon});
 		Mockito.when(pRepo.getPersonsByAdress("ici")).thenReturn(mockPeople);
 		
 		MedicalRecord mockMedicalRecordFather = new MedicalRecord("Alfred", "Nobel", LocalDate.of(1833, 10, 21), null, null);
@@ -106,19 +108,20 @@ class PersonServiceTest {
 		
 		assertEquals(1, result.getListOfChildren().size());
 		assertEquals(1, result.getListOfOtherResidents().size());
+
+		Children result2 = pS.getAllChildrenForAddress("la-bas");
+		
+		assertNull(result2);
 	}
 	
 	@Test
 	void testGetAllPhonesForFirestation() {
-		List<String> mockAdress = new ArrayList<String>();
-		mockAdress.add("ici");
+		List<String> mockAdress = Arrays.asList(new String[] {"ici"});
 		Mockito.when(fRepo.getAdressesByNumber("1")).thenReturn(mockAdress);
 
 		Person mockPersonFather = new Person("Alfred", "Nobel", "ici", null, null, "06-36-66-66-66", null);
 		Person mockPersonSon = new Person("Alfred Junior", "Nobel", "ici", null, null, "07 12 34 56 78", null);
-		List<Person> mockPeople = new ArrayList<Person>();
-		mockPeople.add(mockPersonFather);
-		mockPeople.add(mockPersonSon);
+		List<Person> mockPeople = Arrays.asList(new Person[] {mockPersonFather, mockPersonSon});
 		Mockito.when(pRepo.getPersonsByAdresses(mockAdress)).thenReturn(mockPeople);
 		
 		List<String> result = pS.getAllPhonesForFirestation("1");
@@ -130,15 +133,12 @@ class PersonServiceTest {
 	@Test
 	void testGetAllPeopleInAddress() {
 		Person mockPerson = new Person("Alfred", "Nobel", "ici", null, null, null, null);
-		List<Person> mockPeople = new ArrayList<Person>();
-		mockPeople.add(mockPerson);
+		List<Person> mockPeople = Arrays.asList(new Person[] {mockPerson});
 		Mockito.when(pRepo.getPersonsByAdress("ici")).thenReturn(mockPeople);
 		
 		Mockito.when(fRepo.getNumberByAdress("ici")).thenReturn("1");
 		
-		List<String> medocs = new ArrayList<String>();
-		medocs.add("medoc1");
-		medocs.add("medoc2");
+		List<String> medocs = Arrays.asList(new String[] {"medoc1", "medoc2"});
 		List<String> allergs = new ArrayList<String>();
 		Mockito.when(mRepo.getMedicalRecord(mockPerson)).thenReturn(new MedicalRecord("Alfred", "Nobel", LocalDate.of(2013, 10, 21), medocs, allergs));
 		
@@ -151,23 +151,18 @@ class PersonServiceTest {
 	
 	@Test
 	void testGetAllHousesAndResidentsForFirestations() {
-		List<String> mockAdress = new ArrayList<String>();
-		mockAdress.add("ici");
+		List<String> mockAdress = Arrays.asList(new String[] {"ici"});
 		Mockito.when(fRepo.getAdressesByNumber("1")).thenReturn(mockAdress);
 		
 		Person mockPerson = new Person("Alfred", "Nobel", "ici", null, null, null, null);
-		List<Person> mockPeople = new ArrayList<Person>();
-		mockPeople.add(mockPerson);
+		List<Person> mockPeople = Arrays.asList(new Person[] {mockPerson});
 		Mockito.when(pRepo.getPersonsByAdress("ici")).thenReturn(mockPeople);
 		
-		List<String> medocs = new ArrayList<String>();
-		medocs.add("medoc1");
-		medocs.add("medoc2");
+		List<String> medocs = Arrays.asList(new String[] {"medoc1", "medoc2"});
 		List<String> allergs = new ArrayList<String>();
 		Mockito.when(mRepo.getMedicalRecord(mockPerson)).thenReturn(new MedicalRecord("Alfred", "Nobel", LocalDate.of(2013, 10, 21), medocs, allergs));
 		
-		List<String> listOfNumber = new ArrayList<String>();
-		listOfNumber.add("1");
+		List<String> listOfNumber = Arrays.asList(new String[] {"1"});
 		List<HouseAndResidents> result = pS.getAllHousesAndResidentsForFirestations(listOfNumber);
 		
 		assertEquals("ici", result.get(0).getAddress());
@@ -189,17 +184,17 @@ class PersonServiceTest {
 		assertTrue(result.getAge() > 150);
 	}
 
-	void testGetAllEmailForCity(String city) {
+	@Test
+	void testGetAllEmailForCity() {
 		Person mockPerson = new Person("Alfred", "Nobel", "ici", "Villeneuve-la-vieille", null, null, "nob.alf@web.com");
-		List<Person> mockPeople = new ArrayList<Person>();
-		mockPeople.add(mockPerson);
+		List<Person> mockPeople = Arrays.asList(new Person[] {mockPerson});
 		
 		Mockito.when(pRepo.getPersonByCity("Villeneuve-la-vieille")).thenReturn(mockPeople);
 		
 		List<String> result = pS.getAllEmailForCity("Villeneuve-la-vieille");
 		
 		assertEquals(1, result.size());
-		assertEquals("mob.alf@web.com", result.get(0));
+		assertEquals("nob.alf@web.com", result.get(0));
 	}
 
 }

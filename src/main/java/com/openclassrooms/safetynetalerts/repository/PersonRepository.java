@@ -20,8 +20,8 @@ public class PersonRepository extends JsonDataRepository {
 
 	public void deleteById(PersonIdentity personId) {
 		this.getAllData().getListOfPersons()
-		.removeIf(person -> person.getFirstName() == personId.getFirstName() 
-			&& person.getLastName() == personId.getLastName());
+		.removeIf(person -> person.getFirstName().equals(personId.getFirstName()) 
+			&& person.getLastName().equals(personId.getLastName()));
 	}
 
 	public Person save(Person person) {
