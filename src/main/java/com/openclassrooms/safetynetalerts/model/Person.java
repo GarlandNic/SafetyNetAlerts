@@ -34,11 +34,11 @@ public class Person {
 	
 	private String email;
 	
-	@OneToOne @MapsId
-	private MedicalRecord medicalRecord;
+//	@OneToOne @MapsId
+//	private MedicalRecord medicalRecord;
 	
-	@ManyToOne @JoinColumn(name="address")
-	private Firestation firestation;
+//	@ManyToOne @JoinColumn(name="address")
+//	private Firestation firestation;
 	
 	public Person(String firstName, String lastName, String address, String city, String zip, String phone, String email) {
 		this.firstName = firstName;

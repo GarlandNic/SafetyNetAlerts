@@ -78,10 +78,10 @@ class PersonServiceTest {
 		List<Person> mockPeople = Arrays.asList(new Person[] {mockPersonFather, mockPersonSon});
 		Mockito.when(pRepo.getPersonsByAdresses(mockAdress)).thenReturn(mockPeople);
 		
-		MedicalRecord mockMedicalRecordFather = new MedicalRecord("Alfred", "Nobel", LocalDate.of(1833, 10, 21), null, null);
+		MedicalRecord mockMedicalRecordFather = new MedicalRecord("Alfred", "Nobel", "10/21/1833", null, null);
 		Mockito.when(mRepo.getMedicalRecord(mockPersonFather)).thenReturn(mockMedicalRecordFather);
 		
-		MedicalRecord mockMedicalRecordSon = new MedicalRecord("Alfred", "Nobel", LocalDate.of(2013, 10, 21), null, null);
+		MedicalRecord mockMedicalRecordSon = new MedicalRecord("Alfred", "Nobel", "10/21/2013", null, null);
 		Mockito.when(mRepo.getMedicalRecord(mockPersonSon)).thenReturn(mockMedicalRecordSon);
 		
 		PeopleForFirestation result = pS.getAllPeopleForFirestation("1");
@@ -98,10 +98,10 @@ class PersonServiceTest {
 		List<Person> mockPeople = Arrays.asList(new Person[] {mockPersonFather, mockPersonSon});
 		Mockito.when(pRepo.getPersonsByAdress("ici")).thenReturn(mockPeople);
 		
-		MedicalRecord mockMedicalRecordFather = new MedicalRecord("Alfred", "Nobel", LocalDate.of(1833, 10, 21), null, null);
+		MedicalRecord mockMedicalRecordFather = new MedicalRecord("Alfred", "Nobel", "10/21/1833", null, null);
 		Mockito.when(mRepo.getMedicalRecord(mockPersonFather)).thenReturn(mockMedicalRecordFather);
 		
-		MedicalRecord mockMedicalRecordSon = new MedicalRecord("Alfred", "Nobel", LocalDate.of(2013, 10, 21), null, null);
+		MedicalRecord mockMedicalRecordSon = new MedicalRecord("Alfred", "Nobel", "10/21/2013", null, null);
 		Mockito.when(mRepo.getMedicalRecord(mockPersonSon)).thenReturn(mockMedicalRecordSon);
 		
 		Children result = pS.getAllChildrenForAddress("ici");
@@ -140,7 +140,7 @@ class PersonServiceTest {
 		
 		List<String> medocs = Arrays.asList(new String[] {"medoc1", "medoc2"});
 		List<String> allergs = new ArrayList<String>();
-		Mockito.when(mRepo.getMedicalRecord(mockPerson)).thenReturn(new MedicalRecord("Alfred", "Nobel", LocalDate.of(2013, 10, 21), medocs, allergs));
+		Mockito.when(mRepo.getMedicalRecord(mockPerson)).thenReturn(new MedicalRecord("Alfred", "Nobel", "10/21/2013", medocs, allergs));
 		
 		PeopleInAddress result = pS.getAllPeopleInAddress("ici");
 		
@@ -160,7 +160,7 @@ class PersonServiceTest {
 		
 		List<String> medocs = Arrays.asList(new String[] {"medoc1", "medoc2"});
 		List<String> allergs = new ArrayList<String>();
-		Mockito.when(mRepo.getMedicalRecord(mockPerson)).thenReturn(new MedicalRecord("Alfred", "Nobel", LocalDate.of(2013, 10, 21), medocs, allergs));
+		Mockito.when(mRepo.getMedicalRecord(mockPerson)).thenReturn(new MedicalRecord("Alfred", "Nobel", "10/21/2013", medocs, allergs));
 		
 		List<String> listOfNumber = Arrays.asList(new String[] {"1"});
 		List<HouseAndResidents> result = pS.getAllHousesAndResidentsForFirestations(listOfNumber);
@@ -175,7 +175,7 @@ class PersonServiceTest {
 		
 		Mockito.when(pRepo.getPersonByName("Alfred", "Nobel")).thenReturn(mockPerson);
 		
-		MedicalRecord mockMedicalRecord = new MedicalRecord("Alfred", "Nobel", LocalDate.of(1833, 10, 21), null, null);
+		MedicalRecord mockMedicalRecord = new MedicalRecord("Alfred", "Nobel", "10/21/1833", null, null);
 		Mockito.when(mRepo.getMedicalRecord(mockPerson)).thenReturn(mockMedicalRecord);
 
 		PersonalInformation result = pS.getPersonalInformation("Alfred", "Nobel");

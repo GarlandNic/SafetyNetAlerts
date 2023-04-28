@@ -19,8 +19,8 @@ public class Firestation {
 	
 	private String station;
 	
-	@OneToMany @JoinColumn(name="address")
-	private Person person;
+//	@OneToMany @JoinColumn(name="address")
+//	private Person person;
 
 	public Firestation(String address, String station) {
 		this.address = address;

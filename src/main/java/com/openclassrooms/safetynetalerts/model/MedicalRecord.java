@@ -29,18 +29,18 @@ public class MedicalRecord {
 	@Id
 	private String lastName;
 	
-	private LocalDate birthdate;
+	private String birthdate;
 	
 	private List<String> medications;
 	
 	private List<String> allergies;
 	
-	@OneToOne @MapsId
-	private Person person;
+//	@OneToOne @MapsId
+//	private Person person;
 	
-	private static final DateTimeFormatter  formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+	private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 	
-	public MedicalRecord(String firstName, String lastName, LocalDate birthdate, List<String> medications, List<String> allergies) {
+	public MedicalRecord(String firstName, String lastName, String birthdate, List<String> medications, List<String> allergies) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthdate = birthdate;
@@ -51,7 +51,7 @@ public class MedicalRecord {
 	public MedicalRecord(JSONObject medicalRecord) {
 		this.firstName = (String) medicalRecord.get("firstName");
 		this.lastName = (String) medicalRecord.get("lastName");
-		this.birthdate = LocalDate.parse((String) medicalRecord.get("birthdate"), formatter);
+		this.birthdate = (String) medicalRecord.get("birthdate");
 		
 		this.medications = new ArrayList<String>();
 		JSONArray listOfMedications = (JSONArray) medicalRecord.get("medications");
@@ -64,7 +64,11 @@ public class MedicalRecord {
 
 	public int getAge() {
 		LocalDate today = LocalDate.now();
-		return Period.between(this.birthdate, today).getYears();
+		return Period.between(this.getBirthdateDate(), today).getYears();
+	}
+	
+	public LocalDate getBirthdateDate() {
+		return LocalDate.parse((String) this.birthdate, formatter);
 	}
 
 }
