@@ -52,7 +52,7 @@ public class PersonController {
 	public Person updatePerson(@PathVariable("firstName") final String firstName, @PathVariable("lastName") final String lastName, @RequestBody Person person) {
 		logger.info("controller - updatePerson");
 		if(!person.getFirstName().equals(firstName) || !person.getLastName().equals(lastName)) {
-			logger.warn("controller - updatePerson : Person not found !");
+			logger.warn("controller - updatePerson : not the same person !");
 			return null;
 		} else {
 			PersonIdentity personId = new PersonIdentity(firstName, lastName);

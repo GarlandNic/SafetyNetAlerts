@@ -49,6 +49,20 @@ class MedicalRecordControllerTest {
 				.contentType(MediaType.APPLICATION_JSON)
                 .content("{\"firstName\":\"Alfred\", \"lastName\":\"Nobel\",\"birthdate\":\"10/21/1833\", \"medications\":[], \"allergies\":[]}"))
 			.andExpect(status().isOk());
-	}
+
+		mockMvc.perform(put("/medicalRecord/Alfred/Nobel")
+				.param("firstName", "Alfred")
+				.param("lastName", "Nobel")
+				.contentType(MediaType.APPLICATION_JSON)
+                .content("{\"firstName\":\"Alfred\", \"lastName\":\"Notnobel\",\"birthdate\":\"10/21/1833\", \"medications\":[], \"allergies\":[]}"))
+			.andExpect(status().isOk());
+
+		mockMvc.perform(put("/medicalRecord/Alfred/Nobel")
+				.param("firstName", "Alfred")
+				.param("lastName", "Nobel")
+				.contentType(MediaType.APPLICATION_JSON)
+                .content("{\"firstName\":\"Notalfred\", \"lastName\":\"Nobel\",\"birthdate\":\"10/21/1833\", \"medications\":[], \"allergies\":[]}"))
+			.andExpect(status().isOk());
+}
 
 }

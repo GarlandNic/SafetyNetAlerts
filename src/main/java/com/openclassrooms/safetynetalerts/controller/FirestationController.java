@@ -41,7 +41,7 @@ public class FirestationController {
 	public Firestation updateFirestation(@PathVariable("address") final String address, @RequestBody Firestation firestation) {
 		logger.info("controller - updateFirestation");
 		if(!firestation.getAddress().equals(address)) {
-			logger.warn("controller - updateFirestation : firestation not found !");
+			logger.warn("controller - updateFirestation : not the same firestation !");
 			return null;
 		} else {
 			return firestationService.replaceFirestation(address, firestation.getStation());

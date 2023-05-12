@@ -41,6 +41,12 @@ class FirestationControllerTest {
 				.contentType(MediaType.APPLICATION_JSON)
                 .content("{\"address\":\"ici\", \"station\":\"1\"}"))
 			.andExpect(status().isOk());
+		
+		mockMvc.perform(put("/firestation/ici")
+				.param("address", "ici")
+				.contentType(MediaType.APPLICATION_JSON)
+                .content("{\"address\":\"la-bas\", \"station\":\"1\"}"))
+			.andExpect(status().isOk());
 	}
 
 }

@@ -45,7 +45,21 @@ class PersonControllerTest {
 				.contentType(MediaType.APPLICATION_JSON)
                 .content("{\"firstName\":\"Alfred\", \"lastName\":\"Nobel\", \"address\":\"ici\", \"city\":\"La-bas\", \"zip\":\"012345\", \"phone\":\"06-36-66-66-66\", \"email\":\"alf@email.com\" }"))
 			.andExpect(status().isOk());
-	}
+
+		mockMvc.perform(put("/person/Alfred/Nobel")
+				.param("firstName", "Alfred")
+				.param("lastName", "Nobel")
+				.contentType(MediaType.APPLICATION_JSON)
+                .content("{\"firstName\":\"Alfred\", \"lastName\":\"Notnobel\", \"address\":\"ici\", \"city\":\"La-bas\", \"zip\":\"012345\", \"phone\":\"06-36-66-66-66\", \"email\":\"alf@email.com\" }"))
+			.andExpect(status().isOk());
+
+		mockMvc.perform(put("/person/Alfred/Nobel")
+				.param("firstName", "Alfred")
+				.param("lastName", "Nobel")
+				.contentType(MediaType.APPLICATION_JSON)
+                .content("{\"firstName\":\"Notalfred\", \"lastName\":\"Nobel\", \"address\":\"ici\", \"city\":\"La-bas\", \"zip\":\"012345\", \"phone\":\"06-36-66-66-66\", \"email\":\"alf@email.com\" }"))
+			.andExpect(status().isOk());
+}
 
 	@Test
 	public void testGetAllPeopleForFirestation() throws Exception {

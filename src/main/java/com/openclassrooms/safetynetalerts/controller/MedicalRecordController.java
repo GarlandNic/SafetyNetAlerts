@@ -42,7 +42,7 @@ public class MedicalRecordController {
 	public MedicalRecord updateMedicalRecord(@PathVariable("firstName") final String firstName, @PathVariable("lastName") final String lastName, @RequestBody MedicalRecord medicalRecord) {
 		logger.info("controller - updateMedicalRecord");
 		if(!medicalRecord.getFirstName().equals(firstName) || !medicalRecord.getLastName().equals(lastName)) {
-			logger.warn("controller - updateMedicalRecord : medicalRecord not found !");
+			logger.warn("controller - updateMedicalRecord : not the same person !");
 			return null;
 		} else {
 			PersonIdentity personId = new PersonIdentity(firstName, lastName);
