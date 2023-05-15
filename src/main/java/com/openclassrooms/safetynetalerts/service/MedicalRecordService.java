@@ -23,20 +23,20 @@ public class MedicalRecordService {
 	
 	//post
 	public MedicalRecord saveMedicalRecord(MedicalRecord medicalRecord) {
-		logger.info("service - saveMedicalRecord");
+		logger.debug("service - saveMedicalRecord");
 		MedicalRecord savedMedicalRecord = medicalRecordRepository.save(medicalRecord);
 		return savedMedicalRecord;
 	}
 	
 	//delete
 	public void deleteMedicalRecord(PersonIdentity personId) {
-		logger.info("service - deleteMedicalRecord");
+		logger.debug("service - deleteMedicalRecord");
 		medicalRecordRepository.deleteById(personId);
 	}
 	
 	//put
 	public MedicalRecord replaceMedicalRecord(PersonIdentity personId, MedicalRecord medicalRecord) {
-		logger.info("service - replaceMedicalRecord");
+		logger.debug("service - replaceMedicalRecord");
 		deleteMedicalRecord(personId);
 		return saveMedicalRecord(medicalRecord);
 	}

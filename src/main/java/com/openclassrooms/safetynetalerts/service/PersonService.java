@@ -44,20 +44,20 @@ public class PersonService {
 	
 	//post
 	public Person savePerson(Person person) {
-		logger.info("service - savePerson");
+		logger.debug("service - savePerson");
 		Person savedPerson = personRepository.save(person);
 		return savedPerson;
 	}
 	
 	//delete
 	public void deletePerson(PersonIdentity personId) {
-		logger.info("service - deletePerson");
+		logger.debug("service - deletePerson");
 		personRepository.deleteById(personId);
 	}
 	
 	//put
 	public Person replacePerson(PersonIdentity personId, Person person) {
-		logger.info("service - replacePerson");
+		logger.debug("service - replacePerson");
 		deletePerson(personId);
 		return savePerson(person);
 	}
@@ -68,7 +68,7 @@ public class PersonService {
 	// 		la liste doit inclure les informations spécifiques suivantes : prénom, nom, address, numéro de tel. 
 	// 		de plus elle doit fournir un décompte du nombre d'adultes et du nombre d'enfants (18 ans ou moins)
 	public PeopleForFirestation getAllPeopleForFirestation(String stationNumber) {
-		logger.info("service - getAllPeopleForFirestation");
+		logger.debug("service - getAllPeopleForFirestation");
 		
 		List<String> addresses = firestationRepository.getAdressesByNumber(stationNumber);
 
@@ -89,7 +89,7 @@ public class PersonService {
 	//		La liste doit comprendre le prénom et le nom de famille de chaque enfant, son âge et une liste des autres
 	//		membres du foyer. S'il n'y a pas d'enfant, cette url peut renvoyer une chaîne vide.
 	public Children getAllChildrenForAddress(String address) {
-		logger.info("service - getAllChildrenForAddress");
+		logger.debug("service - getAllChildrenForAddress");
 
 		List<Person> listOfResidents = personRepository.getPersonsByAdress(address);
 		List<Child> listOfChildren = new ArrayList<Child>();
@@ -122,7 +122,7 @@ public class PersonService {
 	//		Cette url doit retourner une liste des numéros de téléphone des résidents desservis par la caserne de
 	//		pompiers. Nous l'utiliserons pour envoyer des messages texte d'urgence à des foyers spécifiques.
 	public List<String> getAllPhonesForFirestation(String stationNumber) {
-		logger.info("service - getAllPhonesForFirestation");
+		logger.debug("service - getAllPhonesForFirestation");
 		
 		List<String> addresses = firestationRepository.getAdressesByNumber(stationNumber);
 
@@ -140,7 +140,7 @@ public class PersonService {
 	//		de pompiers la desservant. La liste doit inclure le nom, le numéro de téléphone, l'âge et les antécédents
 	//		médicaux (médicaments, posologie et allergies) de chaque personne.
 	public PeopleInAddress getAllPeopleInAddress(String address) {
-		logger.info("service - getAllPeopleInAddress");
+		logger.debug("service - getAllPeopleInAddress");
 
 		List<Person> listOfPersons = personRepository.getPersonsByAdress(address);
 
@@ -162,7 +162,7 @@ public class PersonService {
 	//		personnes par adresse. Elle doit aussi inclure le nom, le numéro de téléphone et l'âge des habitants, et
 	//		faire figurer leurs antécédents médicaux (médicaments, posologie et allergies) à côté de chaque nom.
 	public List<HouseAndResidents> getAllHousesAndResidentsForFirestations(List<String> listOfStationNumbers) {
-		logger.info("service - getAllHousesAndResidentsForFirestations");
+		logger.debug("service - getAllHousesAndResidentsForFirestations");
 		
 		List<HouseAndResidents> listOfHouses = new ArrayList<HouseAndResidents>();
 		
@@ -189,7 +189,7 @@ public class PersonService {
 	//		posologie, allergies) de chaque habitant. Si plusieurs personnes portent le même nom, elles doivent
 	//		toutes apparaître.
 	public PersonalInformation getPersonalInformation(String firstName, String lastName) {
-		logger.info("service - getPersonalInformation");
+		logger.debug("service - getPersonalInformation");
 		
 		Person person = personRepository.getPersonByName(firstName, lastName);
 		MedicalRecord medic = medicalRecordRepository.getMedicalRecord(person);
@@ -200,7 +200,7 @@ public class PersonService {
 	//	http://localhost:8080/communityEmail?city=<city>
 	//		Cette url doit retourner les adresses mail de tous les habitants de la ville
 	public List<String> getAllEmailForCity(String city) {
-		logger.info("service - getAllEmailForCity");
+		logger.debug("service - getAllEmailForCity");
 		
 		List<String> listOfEmail = new ArrayList<String>();
 		

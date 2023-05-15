@@ -21,20 +21,20 @@ public class FirestationService {
 	
 	//post
 	public Firestation saveFirestation(Firestation firestation) {
-		logger.info("service - saveFirestation");
+		logger.debug("service - saveFirestation");
 		Firestation savedFirestation = firestationRepository.save(firestation);
 		return savedFirestation;
 	}
 	
 	//delete
 	public void deleteFirestation(String address) {
-		logger.info("service - deleteFirestation");
+		logger.debug("service - deleteFirestation");
 		firestationRepository.deleteById(address);
 	}
 	
 	//put
 	public Firestation replaceFirestation(String address, String newStation) {
-		logger.info("service - replaceFirestation");
+		logger.debug("service - replaceFirestation");
 		deleteFirestation(address);
 		Firestation savedFirestation = new Firestation(address, newStation);
 		return saveFirestation(savedFirestation);

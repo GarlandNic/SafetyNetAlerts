@@ -25,25 +25,28 @@ public class FirestationController {
 	// POST
 	@PostMapping("/firestation")
 	public Firestation postFirestation(@RequestBody Firestation firestation) {
-		logger.info("controller - postFirestation");
+		logger.info("post new Firestation");
+		logger.debug("controller - postFirestation: address="+firestation.getAddress());
 		return firestationService.saveFirestation(firestation);
 	}
 	
 	// DELETE
 	@DeleteMapping("/firestation/{address}")
 	public void deleteFirestation(@PathVariable("address") final String address) {
-		logger.info("controller - deleteFirestation");
+		logger.info("delete Firestation: "+address);
+		logger.debug("controller - deleteFirestation: address="+address);
 		firestationService.deleteFirestation(address);
 	}
 	
 	// PUT
 	@PutMapping("/firestation/{address}")
 	public Firestation updateFirestation(@PathVariable("address") final String address, @RequestBody Firestation firestation) {
-		logger.info("controller - updateFirestation");
+		logger.info("update Firestation");
 		if(!firestation.getAddress().equals(address)) {
-			logger.warn("controller - updateFirestation : not the same firestation !");
+			logger.error("controller - updateFirestation : not the same firestation ! Operation aborting.");
 			return null;
 		} else {
+			logger.debug("controller - updateFirestation: address="+address);
 			return firestationService.replaceFirestation(address, firestation.getStation());
 		}
 	}

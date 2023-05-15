@@ -25,14 +25,16 @@ public class MedicalRecordController {
 	// POST
 	@PostMapping("/medicalRecord")
 	public MedicalRecord postMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
-		logger.info("controller - postMedicalRecord");
+		logger.info("post new MedicalRecord");
+		logger.debug("controller - postMedicalRecord: "+medicalRecord.getFirstName()+", "+medicalRecord.getLastName());
 		return medicalRecordService.saveMedicalRecord(medicalRecord);
 	}
 	
 	// DELETE
 	@DeleteMapping("/medicalRecord/{firstName}/{lastName}")
 	public void deleteMedicalRecord(@PathVariable("firstName") final String firstName, @PathVariable("lastName") final String lastName) {
-		logger.info("controller - deleteMedicalRecord");
+		logger.info("delete MedicalRecord");
+		logger.debug("controller - deleteMedicalRecord: "+firstName+", "+lastName);
 		PersonIdentity personId = new PersonIdentity(firstName, lastName);
 		medicalRecordService.deleteMedicalRecord(personId);
 	}
@@ -40,11 +42,12 @@ public class MedicalRecordController {
 	// PUT
 	@PutMapping("/medicalRecord/{firstName}/{lastName}")
 	public MedicalRecord updateMedicalRecord(@PathVariable("firstName") final String firstName, @PathVariable("lastName") final String lastName, @RequestBody MedicalRecord medicalRecord) {
-		logger.info("controller - updateMedicalRecord");
+		logger.info("update MedicalRecord");
 		if(!medicalRecord.getFirstName().equals(firstName) || !medicalRecord.getLastName().equals(lastName)) {
-			logger.warn("controller - updateMedicalRecord : not the same person !");
+			logger.error("controller - updateMedicalRecord : not the same person ! Operation aborting.");
 			return null;
 		} else {
+			logger.debug("controller - updateMedicalRecord: "+firstName+", "+lastName);
 			PersonIdentity personId = new PersonIdentity(firstName, lastName);
 			return medicalRecordService.replaceMedicalRecord(personId, medicalRecord);
 		}

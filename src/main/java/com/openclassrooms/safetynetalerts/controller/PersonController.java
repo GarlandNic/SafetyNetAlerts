@@ -35,14 +35,16 @@ public class PersonController {
 	// POST
 	@PostMapping("/person")
 	public Person postPerson(@RequestBody Person person) {
-		logger.info("controller - postPerson");
+		logger.info("post new Person");
+		logger.debug("controller - postPerson: "+person.getFirstName()+", "+person.getLastName());
 		return personService.savePerson(person);
 	}
 	
 	// DELETE
 	@DeleteMapping("/person/{firstName}/{lastName}")
 	public void deletePerson(@PathVariable("firstName") final String firstName, @PathVariable("lastName") final String lastName) {
-		logger.info("controller - deletePerson");
+		logger.info("delete Person");
+		logger.debug("controller - deletePerson: "+firstName+", "+lastName);
 		PersonIdentity personId = new PersonIdentity(firstName, lastName);
 		personService.deletePerson(personId);
 	}
@@ -50,11 +52,12 @@ public class PersonController {
 	// PUT
 	@PutMapping("/person/{firstName}/{lastName}")
 	public Person updatePerson(@PathVariable("firstName") final String firstName, @PathVariable("lastName") final String lastName, @RequestBody Person person) {
-		logger.info("controller - updatePerson");
+		logger.info("update Person");
 		if(!person.getFirstName().equals(firstName) || !person.getLastName().equals(lastName)) {
-			logger.warn("controller - updatePerson : not the same person !");
+			logger.error("controller - updatePerson : not the same person ! Operation aborting.");
 			return null;
 		} else {
+			logger.debug("controller - updatePerson: "+firstName+", "+lastName);
 			PersonIdentity personId = new PersonIdentity(firstName, lastName);
 			return personService.replacePerson(personId, person);
 		}
@@ -67,7 +70,8 @@ public class PersonController {
 	// de plus elle doit fournir un décompte du nombre d'adultes et du nombre d'enfants (18 ans ou mois)
 	@GetMapping("/firestation")
 	public PeopleForFirestation getAllPeopleForFirestation(@RequestParam("stationNumber") final String stationNumber) {
-		logger.info("controller - getAllPeopleForFirestation");
+		logger.info("getting all people for given firestation");
+		logger.debug("controller - getAllPeopleForFirestation: "+stationNumber);
 		return personService.getAllPeopleForFirestation(stationNumber);
 	}
 	
@@ -77,7 +81,8 @@ public class PersonController {
 	//		membres du foyer. S'il n'y a pas d'enfant, cette url peut renvoyer une chaîne vide.
 	@GetMapping("/childAlert")
 	public Children getAllChildForAddress(@RequestParam("address") final String address) {
-		logger.info("controller - getAllChildForAddress");
+		logger.info("getting all children for given address");
+		logger.debug("controller - getAllChildForAddress: "+address);
 		return personService.getAllChildrenForAddress(address);
 	}
 	
@@ -86,7 +91,8 @@ public class PersonController {
 	//		pompiers. Nous l'utiliserons pour envoyer des messages texte d'urgence à des foyers spécifiques.
 	@GetMapping("/phoneAlert")
 	public List<String> getAllPhonesForFirestation(@RequestParam("firestation") final String firestation) {
-		logger.info("controller - getAllPhonesForFirestation");
+		logger.info("getting all phone numbers for given firestation");
+		logger.debug("controller - getAllPhonesForFirestation: "+firestation);
 		return personService.getAllPhonesForFirestation(firestation);
 	}
 	
@@ -96,7 +102,8 @@ public class PersonController {
 	//		médicaux (médicaments, posologie et allergies) de chaque personne.
 	@GetMapping("/fire")
 	public PeopleInAddress getAllPeopleInAddress(@RequestParam("address") final String address) {
-		logger.info("controller - getAllPeopleInAddress");
+		logger.info("getting all people for given address");
+		logger.debug("controller - getAllPeopleInAddress: "+address);
 		return personService.getAllPeopleInAddress(address);
 	}
 
@@ -106,7 +113,8 @@ public class PersonController {
 	//		faire figurer leurs antécédents médicaux (médicaments, posologie et allergies) à côté de chaque nom.
 	@GetMapping("/flood/stations")
 	public List<HouseAndResidents> getAllHousesAndResidentsForFirestations(@RequestParam("stations") final List<String> listOfStationNumbers) {
-		logger.info("controller - getAllHousesAndResidentsForFirestations");
+		logger.info("getting all houses and their residents for given firestations");
+		logger.debug("controller - getAllHousesAndResidentsForFirestations: "+listOfStationNumbers.toString());
 		return personService.getAllHousesAndResidentsForFirestations(listOfStationNumbers);
 	}
 
@@ -116,7 +124,8 @@ public class PersonController {
 	//		toutes apparaître.
 	@GetMapping("/personInfo")
 	public PersonalInformation getPersonalInformation(@RequestParam("firstName") final String firstName, @RequestParam("lastName") final String lastName) {
-		logger.info("controller - getPersonalInformation");
+		logger.info("getting personal information");
+		logger.debug("controller - getPersonalInformation: "+firstName+", "+lastName);
 		return personService.getPersonalInformation(firstName, lastName);
 	}
 
@@ -124,7 +133,8 @@ public class PersonController {
 	//		Cette url doit retourner les adresses mail de tous les habitants de la ville
 	@GetMapping("/communityEmail")
 	public List<String> getAllEmailForCity(@RequestParam("city") final String city) {
-		logger.info("controller - getAllEmailForCity");
+		logger.info("getting all Email for given city");
+		logger.info("controller - getAllEmailForCity: "+city);
 		return personService.getAllEmailForCity(city);
 	}
 
