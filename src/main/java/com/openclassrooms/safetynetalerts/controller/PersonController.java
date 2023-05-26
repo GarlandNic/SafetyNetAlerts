@@ -19,7 +19,6 @@ import com.openclassrooms.safetynetalerts.dto.PeopleInAddress;
 import com.openclassrooms.safetynetalerts.dto.PersonalInformation;
 import com.openclassrooms.safetynetalerts.model.Person;
 import com.openclassrooms.safetynetalerts.model.PersonIdentity;
-import com.openclassrooms.safetynetalerts.dto.Child;
 import com.openclassrooms.safetynetalerts.dto.Children;
 import com.openclassrooms.safetynetalerts.dto.HouseAndResidents;
 import com.openclassrooms.safetynetalerts.service.PersonService;

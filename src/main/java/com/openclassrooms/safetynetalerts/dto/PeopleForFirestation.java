@@ -3,11 +3,6 @@ package com.openclassrooms.safetynetalerts.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.openclassrooms.safetynetalerts.model.Person;
-import com.openclassrooms.safetynetalerts.service.MedicalRecordService;
-
 import lombok.Data;
 
 @Data

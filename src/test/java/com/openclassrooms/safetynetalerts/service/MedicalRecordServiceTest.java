@@ -12,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.openclassrooms.safetynetalerts.model.MedicalRecord;
-import com.openclassrooms.safetynetalerts.model.Person;
 import com.openclassrooms.safetynetalerts.model.PersonIdentity;
 import com.openclassrooms.safetynetalerts.repository.MedicalRecordRepository;
 

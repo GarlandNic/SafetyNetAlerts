@@ -124,6 +124,7 @@
 			            <exclude>**/model/*</exclude>
 			            <exclude>**/repository/*</exclude>
 			            <exclude>**/safetynetalerts/Generated.java</exclude>
+			            <exclude>**/safetynetalerts/HttpTraceActuatorConfiguration.java</exclude>
 			        </excludes>
 			    </configuration>
 			    

@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +22,6 @@ import com.openclassrooms.safetynetalerts.dto.Children;
 import com.openclassrooms.safetynetalerts.dto.HouseAndResidents;
 import com.openclassrooms.safetynetalerts.dto.PeopleForFirestation;
 import com.openclassrooms.safetynetalerts.dto.PeopleInAddress;
-import com.openclassrooms.safetynetalerts.dto.PersonDetails;
 import com.openclassrooms.safetynetalerts.dto.PersonalInformation;
 import com.openclassrooms.safetynetalerts.model.MedicalRecord;
 import com.openclassrooms.safetynetalerts.model.Person;
